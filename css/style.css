@@ -1,0 +1,118 @@
+/* ===== Cores do site ===== */
+:root {
+  --verde: #2f7d32;
+  --verde-escuro: #1b5e20;
+  --azul: #0277bd;
+  --texto: #263238;
+  --fundo-claro: #f1f8f4;
+  --branco: #ffffff;
+  --borda: #dfe8e2;
+}
+
+/* ===== Base ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: Arial, Helvetica, sans-serif; color: var(--texto); line-height: 1.6; }
+
+.container { width: min(1100px, 100% - 32px); margin-inline: auto; }
+
+/* ===== Topo e menu ===== */
+.topo { position: sticky; top: 0; z-index: 10; background: var(--branco); box-shadow: 0 2px 6px rgba(0, 0, 0, .08); }
+.topo__conteudo { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; padding: 14px 0; }
+
+.logo img { display: block; height: 52px; width: auto; }
+
+.menu { display: flex; gap: 16px; }
+.menu a { color: var(--texto); text-decoration: none; }
+.menu a:hover { color: var(--verde); }
+
+.menu-botao { display: none; background: none; border: 0; padding: 8px; cursor: pointer; }
+.menu-botao span { display: block; width: 26px; height: 3px; margin: 5px 0; background: var(--verde-escuro); border-radius: 2px; transition: .3s; }
+
+.menu-botao[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-botao[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-botao[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ===== Destaque (topo da página) ===== */
+.destaque { padding: 80px 0; background: linear-gradient(135deg, var(--verde-escuro), var(--azul)); color: var(--branco); text-align: center; }
+.destaque h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); margin-bottom: 16px; }
+
+/* ===== Botões ===== */
+.botao { display: inline-block; margin-top: 24px; padding: 14px 28px; background: #25d366; color: var(--branco); border-radius: 30px; font-weight: bold; text-decoration: none; }
+.botao:hover { filter: brightness(0.95); }
+
+/* ===== Seções e cards ===== */
+.secao { padding: 60px 0; }
+.secao--clara { background: var(--fundo-claro); }
+.secao h2 { text-align: center; margin-bottom: 32px; color: var(--verde-escuro); }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+.card { background: var(--branco); border: 1px solid var(--borda); border-radius: 12px; padding: 24px; }
+.card h3 { color: var(--azul); margin-bottom: 8px; }
+
+/* ===== Cards de serviço ===== */
+.servico { display: flex; flex-direction: column; padding: 0; overflow: hidden; transition: transform .3s, box-shadow .3s; }
+.servico__foto { display: block; width: 100%; height: 160px; object-fit: cover; transition: transform .4s; }
+.servico__foto--vazia { display: flex; align-items: center; justify-content: center; background: var(--fundo-claro); color: var(--verde); font-weight: bold; }
+.servico__conteudo { display: flex; flex-direction: column; flex: 1; padding: 20px 24px 24px; }
+.servico__lista { margin: 12px 0 20px 18px; font-size: .95rem; }
+.botao--card { margin-top: auto; align-self: flex-start; padding: 10px 22px; }
+
+/* ===== Galeria antes e depois ===== */
+.galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 24px; }
+.comparacao { background: var(--branco); border: 1px solid var(--borda); border-radius: 12px; overflow: hidden; }
+.comparacao__fotos { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.comparacao figcaption { padding: 12px 16px; font-weight: bold; color: var(--verde-escuro); }
+
+.foto { position: relative; }
+.foto img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+
+.etiqueta { position: absolute; top: 8px; left: 8px; padding: 3px 10px; background: rgba(0, 0, 0, .65); color: var(--branco); font-size: .75rem; font-weight: bold; border-radius: 20px; }
+.etiqueta--depois { background: var(--verde); }
+
+/* ===== Contato e rodapé ===== */
+.contato { text-align: center; }
+
+.rodape { padding: 20px 0; background: var(--texto); color: var(--branco); text-align: center; font-size: .9rem; }
+
+/* ===== Foto ampliada (lightbox) ===== */
+img.servico__foto, .foto img { cursor: zoom-in; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, .85);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s, visibility .3s;
+}
+.lightbox--aberto { opacity: 1; visibility: visible; }
+
+.lightbox__img { max-width: 100%; max-height: 90vh; border-radius: 8px; transform: scale(.9); transition: transform .3s; }
+.lightbox--aberto .lightbox__img { transform: scale(1); }
+
+.lightbox__fechar { position: absolute; top: 12px; right: 18px; background: none; border: 0; color: var(--branco); font-size: 2.5rem; line-height: 1; cursor: pointer; }
+
+/* ===== Efeitos só para quem usa mouse ===== */
+@media (hover: hover) {
+  .servico:hover {
+    position: relative;
+    z-index: 2;
+    transform: translateY(-6px) scale(1.04);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .15);
+  }
+  .servico:hover .servico__foto { transform: scale(1.1); }
+}
+
+/* ===== Celular (telas até 700px) ===== */
+@media (max-width: 700px) {
+  .menu-botao { display: block; }
+  .menu { display: none; width: 100%; flex-direction: column; gap: 0; }
+  .menu--aberto { display: flex; }
+  .menu a { padding: 12px 0; border-top: 1px solid #e0e0e0; }
+}

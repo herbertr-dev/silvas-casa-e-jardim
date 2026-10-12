@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#1b5e20">
+  <title>Silva's Gestão</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icone-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="icone-192.png">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; background: #f1f8f4; color: #263238; font-family: Arial, Helvetica, sans-serif; text-align: center; }
+    .caixa { width: min(360px, 100%); }
+    .caixa img { width: 120px; height: 120px; border-radius: 24px; }
+    h1 { margin: 16px 0 8px; font-size: 1.3rem; color: #1b5e20; }
+    p { margin-bottom: 24px; color: #607d8b; font-size: .95rem; }
+    .botao { display: block; padding: 14px; border-radius: 8px; background: #2f7d32; color: #fff; font-weight: bold; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main class="caixa">
+    <img src="icone-512.png" alt="">
+    <h1>Silva's Gestão</h1>
+    <p id="texto">Para instalar, toque nos três pontinhos do Chrome e escolha "Adicionar à tela inicial".</p>
+    <a class="botao" id="abrir" href="#">Abrir sistema</a>
+  </main>
+
+  <script>
+    // ===== Cole aqui o link /exec do sistema =====
+    const LINK_SISTEMA = 'https://script.google.com/macros/s/AKfycbxWuFXezQoMVi5vsXIv-t4g-QDilO_nZ8UC6xWK7BB6LYFffFOtfQ17byj-21vDRBFn/exec';
+
+    document.getElementById('abrir').href = LINK_SISTEMA;
+
+    const abertoPeloIcone = window.matchMedia('(display-mode: standalone)').matches;
+    if (abertoPeloIcone) {
+      document.getElementById('texto').textContent = 'Abrindo o sistema...';
+      window.location.replace(LINK_SISTEMA);
+    }
+  </script>
+</body>
+</html>
